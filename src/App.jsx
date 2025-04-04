@@ -5,6 +5,7 @@ import ComingSoon from './pages/ComingSoon'
 import NowPlaying from './pages/NowPlaying'
 import Popular from './pages/Popular'
 import Header from './components/Header'
+import Footer from './components/Footer'
 
 function App() {
 
@@ -18,6 +19,8 @@ function App() {
         <Route path="/nowPlaying" element={<NowPlaying />} />
         <Route path="/comingSoon" element={<ComingSoon />} />
       </Routes>
+
+      <Footer />
     </Router>
   )
 }

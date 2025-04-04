@@ -3,15 +3,15 @@ import { createRoot } from 'react-dom/client'
 import './index.css'
 import App from './App.jsx'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import { createGlobalStyle, ThemeProvider } from 'styled-components'
+import { createGlobalStyle} from 'styled-components'
 
 const GlobalStyle = createGlobalStyle`
   body {
     margin: 0;
     padding: 0;
     font-family: Arial, sans-serif;
-    background-color: #83a7bf;
-  }
+    background-color: #83a7bf;  
+    }
 
   * {
     box-sizing: border-box;
@@ -19,7 +19,11 @@ const GlobalStyle = createGlobalStyle`
 
   h1, h2, h3, h4, h5, h6 {
     margin-top: 0;
+    text-align:center;
+    
   }
+
+
 
   ul {
     list-style-type: none;

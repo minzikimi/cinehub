@@ -1,18 +1,19 @@
 import React from 'react';
 import styled from 'styled-components';
-import { motion } from 'framer-motion';
-
+import {motion, useAnimation,useScroll,useMotionValueEvent} from "framer-motion";
+import { useMatch, Link } from 'react-router-dom';
+// import popcornIcon from "../assets/popcorn-svgrepo-com.svg"
 
 const Nav = styled(motion.nav)`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  position: fixed;
+  position: sticky;
   width: 100%;
-  margin-top: 3rem;
-  padding: 0 20px;
+  margin-top: 1rem;
+  padding: 20px;
   top: 0;
-  height: 80px;
+  height: auto;
   font-size: 14px;
   background-color: #83a7bf;
   z-index: 1000;
@@ -39,38 +40,41 @@ const Col = styled.div`
 const MenuWrapper = styled.div`
   display: flex;
   align-items: center;
-  gap:3rem;
+  gap: 3rem;
+  position: relative;
   
   @media (max-width: 768px) {
     flex-direction: column;  
     align-items: flex-start;
     width: 100%;
-    gap:1rem;
+    gap: 1rem;
   }
 `;
 
 const Menu = styled.div`
-  margin-right: 30px;
   cursor: pointer;
   font-size: 3rem;
   font-weight: 600;
-  
   color: #fafb06;
+  position: relative; 
   &:hover {
-    color: white;
+    color: #213547;
   }
 
   @media (max-width: 768px) {
-    margin-right: 0;
-    margin-bottom: 15px;
-    font-size: 2.5rem; 
+    font-size: 1rem;
   }
+
+  ${(props) => props.isActive && `
+    color: white;
+    font-weight: 700;
+  `}
 `;
 
 const Logo = styled.h1`
-  font-family: "Londrina Shadow", sans-serif;
+  font-family: "Boldonse", system-ui;
   color: #fafb06;
-  font-size: 10rem;
+  font-size: 6rem;
   font-weight: 700;
   cursor: pointer;
   display: flex;
@@ -81,34 +85,104 @@ const Logo = styled.h1`
   flex-grow: 1;
   text-align: center;
   
+  transition: all 0.3s ease;  
   &:hover {
-    color: white;
+    color: #ffffff;  
+
+    opacity: 0.8;  
   }
 
   @media (max-width: 768px) {
-    font-size: 6rem;  
+    font-size: 3rem;
   }
 `;
 
+const Circle = styled(motion.span)`
+  position: absolute;
+  bottom: -20px;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  background-color: #ecf0f1;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+
+    @media (max-width: 768px) {
+    width:5px;
+    height:5px;
+    bottom:-5px;
+  }
+`;
+const navVariants = {
+    top: {
+      backgroundColor:" #83a7bf",
+    },
+    scroll: {
+      backgroundColor: "rgb(38, 55, 68)",
+      
+    },
+  };
+  const LogoWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+`;
+  
 
 const Header = () => {
+  const homeMatch = useMatch('/');
+  const comingsoonMatch = useMatch('/comingSoon');
+  const nowplayingMatch = useMatch('/nowPlaying');
+  const {scrollY} = useScroll();
+  const navAnimation = useAnimation();
+    
+
+  useMotionValueEvent(scrollY, "change", (latest) => {
+    if (latest > 80) {
+      navAnimation.start("scroll");
+    } else {
+      navAnimation.start("top");
+    }
+  });
+
   return (
-    <Nav>
-      <div style={{ display: 'flex', alignItems: 'center', width: '100%' }}>
-        
+    <Nav variants={navVariants} animate={navAnimation} initial={"top"}>
         <Col gap="10rem">
-          <Logo>CineHub</Logo>
+            <LogoWrapper>
+            <Logo>WatchHub</Logo>
+                {/* <img src={popcornIcon} alt="Popcorn Icon"  style={{ width: "70px", height: "70px", fill: "#fafb06" }} /> */}
+       
+            </LogoWrapper>
         </Col>
 
         <Col>
           <MenuWrapper>
-            <Menu>Popular</Menu>
-            <Menu>Now Playing</Menu>
-            <Menu>Coming Soon</Menu>
+    
+            <Link to="/" style={{ textDecoration: 'none' }}>
+              <Menu >
+                Popular
+                {homeMatch && <Circle layoutId="circle" />}
+              </Menu>
+            </Link>
+
+            <Link to="/nowPlaying" style={{ textDecoration: 'none' }}>
+              <Menu >
+                Now Playing
+                {nowplayingMatch && <Circle layoutId="circle" />}
+              </Menu>
+            </Link>
+
+            <Link to="/comingSoon" style={{ textDecoration: 'none' }}>
+              <Menu >
+                Coming Soon
+                {comingsoonMatch && <Circle layoutId="circle" />}
+              </Menu>
+            </Link>
           </MenuWrapper>
         </Col>
-      </div>
-
+      
     </Nav>
   );
 };
