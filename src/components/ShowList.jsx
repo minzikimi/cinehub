@@ -97,6 +97,13 @@ const Modal = styled(motion.div)`
   padding: 20px;
   max-width: 800px; 
   border-radius: 10px;
+
+    @media (max-width: 820px) {
+    flex-direction: column;
+    max-width: 90%;
+    height: auto;
+    padding: 15px;
+  }
 `;
 
 const ModalCover = styled.div`
@@ -107,18 +114,35 @@ const ModalCover = styled.div`
   background-size: cover;
   background-position: center;
   border-radius: 10px;
+
+    @media (max-width: 768px) {
+    width: 100%;
+    height: auto;
+    max-width: 100%;
+    margin-bottom: 15px;
+  }
 `;
 
 const ModalContent = styled.div`
   width: 55%;
   color: white;
   padding-left: 20px;
+
+
+  @media (max-width: 768px) {
+    width: 100%;
+    padding-left: 0;
+  }
 `;
 
 const ModalTitle = styled.h2`
   position: relative;
   font-size: 2rem;
   margin-top: 10px;
+
+   @media (max-width: 1082px) {
+    font-size: 1.5rem;
+  }
 `;
 
 const ModalOverview = styled.h3`
@@ -126,12 +150,22 @@ const ModalOverview = styled.h3`
   text-align: left;
   padding: 0 20px;
   margin: 10px 0;
+
+   @media (max-width: 1082px) {
+    font-size: 1rem;
+  }
 `;
 
 const ButtonGroup = styled.div`
   display: flex;
   gap: 10px;
   margin:3rem;
+
+   @media (max-width: 1082px) {
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 20px;
+  }
 `;
 
 const Button = styled.button`
@@ -151,6 +185,10 @@ const Button = styled.button`
   }
   &.play{
   background-color: #fafb06;
+  }
+
+  @media (max-width: 1082px) {
+    font-size: 14px;
   }
 `;
 
