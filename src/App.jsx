@@ -1,5 +1,4 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import './App.css';
 import TopRated from './pages/TopRated';
 import NowPlaying from './pages/NowPlaying';
 import Popular from './pages/Popular';

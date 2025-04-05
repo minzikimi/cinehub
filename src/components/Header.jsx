@@ -42,6 +42,7 @@ const MenuWrapper = styled.div`
   align-items: center;
   gap: 3rem;
   position: relative;
+
   
   @media (max-width: 768px) {
     flex-direction: column;  
@@ -62,7 +63,7 @@ const Menu = styled.div`
   }
 
   @media (max-width: 768px) {
-    font-size: 1rem;
+    font-size: 1.2rem;
   }
 
   ${(props) => props.isActive && `
@@ -81,7 +82,8 @@ const Logo = styled.h1`
   align-items: center;
   justify-content: center;
   height: 100%;
-  margin: 0;
+  margin:0;
+  margin-left:2rem;
   flex-grow: 1;
   text-align: center;
   
@@ -123,7 +125,7 @@ const navVariants = {
       
     },
   };
-  const LogoWrapper = styled.div`
+const LogoWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;

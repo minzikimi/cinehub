@@ -1,12 +1,12 @@
 import React from 'react';
 import { useQuery } from '@tanstack/react-query';
 import styled from 'styled-components';
-import { motion, AnimatePresence,useScroll } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useNavigate, useMatch } from 'react-router-dom';
 
 const Wrapper = styled(motion.div)`
   display: grid;
-
+  gap:2rem;
   grid-template-columns: repeat(4, 1fr);
   margin: 50px 30px;
   justify-items: center;
@@ -56,16 +56,101 @@ const Card = styled(motion.div)`
 `;
 
 const Info = styled(motion.div)`
-  padding: 10px;
-  background-color: tomato;
+  padding-top: 10px;
+  background-color: #fafb06;
   opacity: 0;
   position: absolute;
   width: 100%;
   bottom: 0;
-
+  border-bottom-left-radius: 10px; 
+  border-bottom-right-radius: 10px; 
   h4 {
     text-align: center;
     font-size: 18px;
+    color:#213547;
+  }
+`;
+
+const Overlay = styled(motion.div)`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.75);
+  opacity: 0;
+  
+  transition: opacity 0.3s ease-in-out;
+`;
+const Modal = styled(motion.div)`
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #030303;
+  height: 450px;
+  z-index: 100;
+  display: flex;
+  flex-direction: row; 
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px;
+  max-width: 800px; 
+  border-radius: 10px;
+`;
+
+const ModalCover = styled.div`
+  width: 40%; 
+  height: 100%;
+  background-image: linear-gradient(to left, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0)),
+    url(${(props) => props.src});
+  background-size: cover;
+  background-position: center;
+  border-radius: 10px;
+`;
+
+const ModalContent = styled.div`
+  width: 55%;
+  color: white;
+  padding-left: 20px;
+`;
+
+const ModalTitle = styled.h2`
+  position: relative;
+  font-size: 2rem;
+  margin-top: 10px;
+`;
+
+const ModalOverview = styled.h3`
+  font-weight: 100;
+  text-align: left;
+  padding: 0 20px;
+  margin: 10px 0;
+`;
+
+const ButtonGroup = styled.div`
+  display: flex;
+  gap: 10px;
+  margin:3rem;
+`;
+
+const Button = styled.button`
+  
+  color: #213547;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+
+  &.add-to-list {
+    border:1px solid #fafb06;
+    background-color:transparent;
+    color:#fafb06;
+  }
+  &.play{
+  background-color: #fafb06;
   }
 `;
 
@@ -101,106 +186,89 @@ const cardVariants = {
     }),
   };
 
-const Overlay = styled(motion.div)`
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.75);
-  opacity: 0;
-
-  transition: opacity 0.3s ease-in-out;
-`;
-
-
-const Modal = styled(motion.div)`
-
-`
-
-
-
-const ShowList = ({ queryKey, queryFn, pathPrefix }) => {
-  const { data, isLoading, error } = useQuery({
-    queryKey,
-    queryFn,
-  });
-
-
-  const navigate = useNavigate();
-  const handleCardClick = (showId) => {
-    console.log("Navigating to show id", showId);
-    navigate(`/${pathPrefix}/${showId}`);
-  };
-  const showMatch = useMatch(`/${pathPrefix}/:showId`);
-
-  const handleOverlayClick = () =>navigate(-1);
-//   const {scrollY}=useScroll();
-//   const modalTop = useTransform(scrollY, (value) => value + 100);
+  const ShowList = ({ queryKey, queryFn, pathPrefix }) => {
+    const { data, isLoading, error } = useQuery({
+      queryKey,
+      queryFn,
+    });
+    console.log('API Response:', data);
   
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
-  if (error) {
-    return <div>Error fetching data</div>;
-  }
+    const navigate = useNavigate();
+    const handleCardClick = (showId) => {
+      console.log('Navigating to show id', showId);
+      navigate(`/${pathPrefix}/${showId}`);
+    };
+    const showMatch = useMatch(`/${pathPrefix}/:showId`);
+  
+    const handleOverlayClick = () => navigate(-1);
+  
+    if (isLoading) {
+      return <div>Loading...</div>;
+    }
+    if (error) {
+      return <div>Error fetching data</div>;
+    }
+  
+    const clickedShow = showMatch?.params.showId && data.find((show) => show.id === +showMatch.params.showId);
+    console.log(clickedShow);
 
-  return (
-    <Wrapper>
-      {data.map((show, index) => (
-        <Card
-          key={show.id}
-          whileHover="hover"
-          variants={cardVariants}
-          initial="hidden"
-          animate="visible"
-          custom={index}
-          transition={{ type: "tween" }}
-          onClick={() => handleCardClick(show.id)} 
-        >
-          <img
-            src={`https://image.tmdb.org/t/p/w500${show.poster_path}`}
-            alt={show.name}
-          />
-          <Info variants={infoVariants}>
-            <h4>{show.name}</h4>
-          </Info>
-        </Card>
-      ))}
-
-      <AnimatePresence>
-        {showMatch ? (
-        <>
-         <Overlay
-             onClick={handleOverlayClick}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0, transition: { duration: 0.1 } }} 
+  
+    return (
+      <Wrapper>
+        {data.map((show, index) => (
+          <Card
+            key={show.id}
+            whileHover="hover"
+            variants={cardVariants}
+            initial="hidden"
+            animate="visible"
+            custom={index}
+            transition={{ type: 'tween' }}
+            onClick={() => handleCardClick(show.id)}
+          >
+            <img
+              src={`https://image.tmdb.org/t/p/w500${show.poster_path}`}
+              alt={show.name}
             />
-            <motion.div
-                layoutId={showMatch.params.showId}
-                style={{
-                position: "absolute",
-                width: "40vw",
-                height: "auto",
-                backgroundColor: "red", 
-                left: 0,
-                right: 0,
-                position:"fixed",
-                margin: "0 auto",
-                zIndex: 100,
-                }}
-            
-            >
-            <h2>Show Details</h2>
-            <p>This is where the detailed info of the show will appear.</p>
-          </motion.div>
-        </>
-        
-        ) : null}
-      </AnimatePresence>
-    </Wrapper>
-  );
-};
-
-export default ShowList;
+            <Info variants={infoVariants}>
+              <h4>{show.name}</h4>
+            </Info>
+          </Card>
+        ))}
+  
+        <AnimatePresence>
+          {showMatch ? (
+            <>
+              <Overlay onClick={handleOverlayClick} 
+              initial={{ opacity: 0 }} 
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0, transition: { duration: 0.1 } }} />
+              <Modal layoutId={showMatch.params.showId}>
+                {clickedShow ? (
+                  <>
+                    <ModalCover src={`https://image.tmdb.org/t/p/w500${clickedShow.poster_path}`} />
+                    <ModalContent>
+                      <ModalTitle>{clickedShow.name}</ModalTitle>
+                      <ModalOverview>{clickedShow.overview}</ModalOverview>
+  
+                      <ButtonGroup>
+                        <Button className="play">Play</Button>
+                        <Button className="add-to-list">
+                          Add to List
+                        </Button>
+                      </ButtonGroup>
+                    </ModalContent>
+                  </>
+                ) : (
+                  <p>Loading...</p>
+                )}
+              </Modal>
+            </>
+          ) : null}
+        </AnimatePresence>
+      </Wrapper>
+    );
+  };
+  
+  export default ShowList;
+  
