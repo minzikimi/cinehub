@@ -4,10 +4,12 @@ import NowPlaying from './pages/NowPlaying';
 import Popular from './pages/Popular';
 import Header from './components/Header';
 import Footer from './components/Footer';
+import ScrollBackground from './components/ScrollBackground';
 
 function App() {
   return (
     <Router>
+      <ScrollBackground /> 
       <Header />
       <Routes>
         <Route path="/" element={<Popular pathPrefix="popular" />} />

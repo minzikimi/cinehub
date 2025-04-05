@@ -75,7 +75,7 @@ const Menu = styled.div`
 const Logo = styled.h1`
   font-family: "Boldonse", system-ui;
   color: #fafb06;
-  font-size: 4rem;
+  font-size: 6rem;
   font-weight: 700;
   cursor: pointer;
   display: flex;
