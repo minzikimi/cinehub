@@ -10,7 +10,6 @@ const Nav = styled(motion.nav)`
   align-items: center;
   position: fix;
   width: 100%;
-  margin-top: 1rem;
   padding: 20px;
   top: 0;
   height: auto;
