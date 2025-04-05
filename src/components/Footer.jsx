@@ -38,7 +38,7 @@ const Footer = () => {
           &copy; {new Date().getFullYear()} WatchHub. All rights reserved.
         </FooterText>
         <FooterText>
-          By MJ
+          By MJ (gojira)
         </FooterText>
        
       </FooterContent>

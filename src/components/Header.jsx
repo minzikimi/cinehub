@@ -8,7 +8,7 @@ const Nav = styled(motion.nav)`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  position: sticky;
+  position: fix;
   width: 100%;
   margin-top: 1rem;
   padding: 20px;
@@ -53,7 +53,7 @@ const MenuWrapper = styled.div`
 
 const Menu = styled.div`
   cursor: pointer;
-  font-size: 3rem;
+  font-size: 2rem;
   font-weight: 600;
   color: #fafb06;
   position: relative; 
@@ -74,7 +74,7 @@ const Menu = styled.div`
 const Logo = styled.h1`
   font-family: "Boldonse", system-ui;
   color: #fafb06;
-  font-size: 6rem;
+  font-size: 4rem;
   font-weight: 700;
   cursor: pointer;
   display: flex;
@@ -133,8 +133,8 @@ const navVariants = {
 
 const Header = () => {
   const homeMatch = useMatch('/');
-  const comingsoonMatch = useMatch('/comingSoon');
-  const nowplayingMatch = useMatch('/nowPlaying');
+  const topRatedMatch = useMatch('/toprated');
+  const nowplayingMatch = useMatch('/nowplaying');
   const {scrollY} = useScroll();
   const navAnimation = useAnimation();
     
@@ -162,22 +162,22 @@ const Header = () => {
     
             <Link to="/" style={{ textDecoration: 'none' }}>
               <Menu >
-                Popular
+                Trending
                 {homeMatch && <Circle layoutId="circle" />}
               </Menu>
             </Link>
 
-            <Link to="/nowPlaying" style={{ textDecoration: 'none' }}>
+            <Link to="/nowplaying" style={{ textDecoration: 'none' }}>
               <Menu >
                 Now Playing
                 {nowplayingMatch && <Circle layoutId="circle" />}
               </Menu>
             </Link>
 
-            <Link to="/comingSoon" style={{ textDecoration: 'none' }}>
+            <Link to="/toprated" style={{ textDecoration: 'none' }}>
               <Menu >
-                Coming Soon
-                {comingsoonMatch && <Circle layoutId="circle" />}
+                Top Rated
+                {topRatedMatch && <Circle layoutId="circle" />}
               </Menu>
             </Link>
           </MenuWrapper>

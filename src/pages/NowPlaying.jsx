@@ -1,9 +1,15 @@
 import React from 'react'
+import { getNowPlaying } from '../api/api'
+import ShowList from '../components/ShowList'
 
 const NowPlaying = () => {
   return (
     <div>
-      <h1>now</h1>
+      <ShowList 
+          queryKey={['shows', 'now playing']} 
+          queryFn={getNowPlaying} 
+          pathPrefix="nowplaying" 
+        />
     </div>
   )
 }
