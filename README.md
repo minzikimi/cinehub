@@ -1,3 +1,3 @@
 # TV Series App
 
-TV series app built with React, React Query, Framer Motion, and the TMDb API. It lets users browse TV shows, view details in a modal, and interact with smooth animations. Data is fetched efficiently using React Query.
+A TV Series App built with React, React Query, Framer Motion, and the TMDb API. It allows users to browse TV shows across three categories: Now Playing, Popular, and Top Rated. Users can view show details in a modal, with smooth animations for a dynamic, interactive experience. Data is fetched efficiently using React Query to ensure fast and seamless browsing.
