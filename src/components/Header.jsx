@@ -44,7 +44,7 @@ const MenuWrapper = styled.div`
   position: relative;
 
   
-  @media (max-width: 768px) {
+  @media (max-width: 1082 px) {
     flex-direction: column;  
     align-items: flex-start;
     width: 100%;
