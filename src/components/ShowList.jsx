@@ -114,13 +114,6 @@ const ModalCover = styled.div`
   background-size: cover;
   background-position: center;
   border-radius: 10px;
-
-    @media (max-width: 768px) {
-    width: 100%;
-    height: auto;
-    max-width: 100%;
-    margin-bottom: 15px;
-  }
 `;
 
 const ModalContent = styled.div`
