@@ -2,7 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 import {motion, useAnimation,useScroll,useMotionValueEvent} from "framer-motion";
 import { useMatch, Link } from 'react-router-dom';
-// import popcornIcon from "../assets/popcorn-svgrepo-com.svg"
 
 const Nav = styled(motion.nav)`
   display: flex;
@@ -41,13 +40,11 @@ const MenuWrapper = styled.div`
   align-items: center;
   gap: 3rem;
   position: relative;
-
   
-  @media (max-width: 1082 px) {
-    flex-direction: column;  
-    align-items: flex-start;
-    width: 100%;
-    gap: 1rem;
+  @media (max-width: 768px) {
+    flex-direction: column; 
+    width: 100%; 
+    gap: 1rem; 
   }
 `;
 
@@ -61,14 +58,9 @@ const Menu = styled.div`
     color: #213547;
   }
 
-  @media (max-width: 768px) {
-    font-size: 1.2rem;
+   @media (max-width: 1082px) {
+    font-size: 1.2rem; 
   }
-
-  ${(props) => props.isActive && `
-    color: white;
-    font-weight: 700;
-  `}
 `;
 
 const Logo = styled.h1`
@@ -84,16 +76,14 @@ const Logo = styled.h1`
   margin:0;
   margin-left:2rem;
   flex-grow: 1;
-  text-align: center;
   
   transition: all 0.3s ease;  
   &:hover {
     color: #ffffff;  
-
     opacity: 0.8;  
   }
 
-  @media (max-width: 768px) {
+  @media (max-width: 1082px) {
     font-size: 3rem;
   }
 `;
@@ -152,9 +142,7 @@ const Header = () => {
     <Nav variants={navVariants} animate={navAnimation} initial={"top"}>
         <Col gap="10rem">
             <LogoWrapper>
-            <Logo>WatchHub</Logo>
-                {/* <img src={popcornIcon} alt="Popcorn Icon"  style={{ width: "70px", height: "70px", fill: "#fafb06" }} /> */}
-       
+              <Logo>WatchHub</Logo>
             </LogoWrapper>
         </Col>
 

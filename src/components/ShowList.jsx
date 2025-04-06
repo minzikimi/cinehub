@@ -12,7 +12,7 @@ const Wrapper = styled(motion.div)`
   justify-items: center;
   font-family: "42dot Sans", sans-serif;
 
-  @media (max-width: 768px) {
+  @media (max-width: 820px) {
     grid-template-columns:repeat(2,1fr);
   }
 `;
@@ -29,7 +29,6 @@ const Card = styled(motion.div)`
   img {
     width: 100%;
     object-fit: contain;
-    border-radius: 10px;
   }
 
   h3 {
@@ -56,18 +55,20 @@ const Card = styled(motion.div)`
 `;
 
 const Info = styled(motion.div)`
-  padding-top: 10px;
+  padding-top:15px;
   background-color: #fafb06;
   opacity: 0;
   position: absolute;
   width: 100%;
   bottom: 0;
-  border-bottom-left-radius: 10px; 
-  border-bottom-right-radius: 10px; 
   h4 {
     text-align: center;
-    font-size: 18px;
+    font-size: 16px;
     color:#213547;
+  }
+
+     @media (max-width: 1082px) {
+    padding-top:0;
   }
 `;
 
